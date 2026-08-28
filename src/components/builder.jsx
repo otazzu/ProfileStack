@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import Form from "../components/form/ui/Form";
 import { useProfiles } from "../features/profiles/useProfiles";
 import ProfileSelector from "../features/profiles/ProfileSelector";
+import { setProfilePicture, removeProfilePicture } from "../features/profiles/profilePictureStorage";
 
 const ResumeContext = createContext(DefaultResumeData);
 
@@ -25,18 +26,28 @@ export default function Builder() {
   const [formClose, setFormClose] = useState(false);
 
   // profile picture
-  const handleProfilePicture = (e) => {
-    const file = e.target.files[0];
-
-    if (file instanceof Blob) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setResumeData({ ...resumeData, profilePicture: event.target.result });
-      };
-      reader.readAsDataURL(file);
-    } else {
+  const handleProfilePicture = (file) => {
+    if (!(file instanceof Blob)) {
       console.error("Invalid file type");
+      return;
     }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64 = event.target.result;
+      setResumeData({ ...resumeData, profilePicture: base64 });
+      if (selectedProfileId) {
+        setProfilePicture(selectedProfileId, base64);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const resetProfilePicture = () => {
+    if (!selectedProfileId) return;
+    removeProfilePicture(selectedProfileId);
+    const profile = profiles.find((p) => p.id === selectedProfileId);
+    const defaultPicture = profile?.resume?.profilePicture || "";
+    setResumeData({ ...resumeData, profilePicture: defaultPicture });
   };
 
   const handleChange = (e) => {
@@ -52,6 +63,7 @@ export default function Builder() {
           setResumeData,
           handleProfilePicture,
           handleChange,
+          resetProfilePicture,
         }}
       >
         <Meta

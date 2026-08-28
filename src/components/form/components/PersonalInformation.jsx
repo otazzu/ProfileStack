@@ -1,8 +1,9 @@
 import React, {useContext} from "react";
 import {ResumeContext} from "../../builder";
+import ImageUpload from "./ImageUpload";
 
 const PersonalInformation = ({}) => {
-  const {resumeData, setResumeData, handleProfilePicture, handleChange} =
+  const {resumeData, setResumeData, handleProfilePicture, handleChange, resetProfilePicture} =
     useContext(ResumeContext);
 
   return (
@@ -51,13 +52,10 @@ const PersonalInformation = ({}) => {
           value={resumeData.address}
           onChange={handleChange}
         />
-        <input
-          type="file"
-          name="profileImage"
-          accept="image/*"
-          className="profileInput"
+        <ImageUpload
+          value={resumeData.profilePicture}
           onChange={handleProfilePicture}
-          placeholder="Profile Picture"
+          onReset={resetProfilePicture}
         />
       </div>
     </div>
