@@ -23,10 +23,18 @@ export function getProfilePicture(profileId) {
  * @param {string} profileId
  * @param {string} base64
  */
+/**
+ * Save a profile picture (base64) to localStorage.
+ * Handles QuotaExceededError gracefully.
+ * @param {string} profileId
+ * @param {string} base64
+ * @returns {boolean} true if saved, false if storage quota exceeded or other error
+ */
 export function setProfilePicture(profileId, base64) {
-  if (!isBrowser) return;
+  if (!isBrowser) return false;
   try {
     localStorage.setItem(`${STORAGE_PREFIX}${profileId}`, base64);
+    return true;
   } catch (e) {
     if (e.name === "QuotaExceededError") {
       console.warn(
@@ -35,6 +43,7 @@ export function setProfilePicture(profileId, base64) {
     } else {
       console.warn("profilePictureStorage: write failed", e);
     }
+    return false;
   }
 }
 

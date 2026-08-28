@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useCallback } from "react";
 import Meta from "../components/meta/Meta";
 import FormCloseOpenBtn from "../components/FormCloseOpenBtn";
 import Preview from "../components/preview/ui/Preview";
@@ -25,8 +25,12 @@ export default function Builder() {
   // form hide/show
   const [formClose, setFormClose] = useState(false);
 
+  // upload error feedback
+  const [uploadError, setUploadError] = useState("");
+
   // profile picture
   const handleProfilePicture = (file) => {
+    setUploadError("");
     if (!(file instanceof Blob)) {
       console.error("Invalid file type");
       return;
@@ -36,11 +40,16 @@ export default function Builder() {
       const base64 = event.target.result;
       setResumeData({ ...resumeData, profilePicture: base64 });
       if (selectedProfileId) {
-        setProfilePicture(selectedProfileId, base64);
+        const saved = setProfilePicture(selectedProfileId, base64);
+        if (!saved) {
+          setUploadError("Image saved for this session only. Local storage is full.");
+        }
       }
     };
     reader.readAsDataURL(file);
   };
+
+  const clearUploadError = useCallback(() => setUploadError(""), []);
 
   const resetProfilePicture = () => {
     if (!selectedProfileId) return;
@@ -52,7 +61,6 @@ export default function Builder() {
 
   const handleChange = (e) => {
     setResumeData({ ...resumeData, [e.target.name]: e.target.value });
-    console.log(resumeData);
   };
 
   return (
@@ -64,6 +72,8 @@ export default function Builder() {
           handleProfilePicture,
           handleChange,
           resetProfilePicture,
+          uploadError,
+          clearUploadError,
         }}
       >
         <Meta

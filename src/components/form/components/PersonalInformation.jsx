@@ -3,7 +3,7 @@ import {ResumeContext} from "../../builder";
 import ImageUpload from "./ImageUpload";
 
 const PersonalInformation = ({}) => {
-  const {resumeData, setResumeData, handleProfilePicture, handleChange, resetProfilePicture} =
+  const {resumeData, setResumeData, handleProfilePicture, handleChange, resetProfilePicture, uploadError, clearUploadError} =
     useContext(ResumeContext);
 
   return (
@@ -56,6 +56,7 @@ const PersonalInformation = ({}) => {
           value={resumeData.profilePicture}
           onChange={handleProfilePicture}
           onReset={resetProfilePicture}
+          error={uploadError}
         />
       </div>
     </div>

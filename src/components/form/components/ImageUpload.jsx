@@ -8,6 +8,7 @@ const ImageUpload = ({
   value,
   onChange,
   onReset,
+  error: externalError = "",
   maxFileSize = DEFAULT_MAX_FILE_SIZE,
   acceptedTypes = DEFAULT_ACCEPTED_TYPES,
   previewSize = DEFAULT_PREVIEW_SIZE,
@@ -32,6 +33,8 @@ const ImageUpload = ({
     setError("");
     return true;
   };
+
+  const displayError = externalError || error;
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -132,7 +135,7 @@ const ImageUpload = ({
         </button>
       )}
 
-      {error && <p className="text-xs text-red-500">{error}</p>}
+      {displayError && <p className="text-xs text-red-500">{displayError}</p>}
     </div>
   );
 };
