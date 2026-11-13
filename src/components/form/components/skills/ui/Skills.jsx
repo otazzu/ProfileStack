@@ -1,21 +1,26 @@
 import React, {useContext} from 'react';
 import {ResumeContext} from "../../../../builder";
 import SkillsGroup from "../components/SkillsGroup";
+import DragList from "../../DragList";
+import {moveItem} from "../../../utils/moveItem";
 
 const Skills = () => {
   const {resumeData, setResumeData} = useContext(ResumeContext);
 
   return (
-    <div>
-      {
-        resumeData.skills.map((skill, index) => (
-          <SkillsGroup
-            title={skill.title}
-            key={index}
-          />
-        ))
+    <DragList
+      items={resumeData.skills}
+      className="flex flex-col gap-4"
+      onReorder={(from, to) =>
+        setResumeData({
+          ...resumeData,
+          skills: moveItem(resumeData.skills, from, to),
+        })
       }
-    </div>
+      renderItem={(skill) => (
+        <SkillsGroup title={skill.title} />
+      )}
+    />
   );
 };
 

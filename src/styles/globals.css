@@ -73,6 +73,30 @@
   .editable {
     @apply hover:bg-gray-100 hover:cursor-text outline-none;
   }
+
+  .drag-row {
+    @apply flex items-start gap-1;
+  }
+
+  .drag-row-content {
+    @apply flex-1 min-w-0;
+  }
+
+  .drag-handle {
+    @apply flex items-center justify-center w-5 shrink-0 pt-2 text-white/50 cursor-grab select-none rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70;
+  }
+
+  .drag-handle:active {
+    @apply cursor-grabbing text-white;
+  }
+
+  .drag-row--dragging {
+    @apply opacity-50;
+  }
+
+  .drag-row--over {
+    @apply rounded outline-dashed outline-2 outline-offset-2 outline-white/70;
+  }
 }
 
 @layer components {
