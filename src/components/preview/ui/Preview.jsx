@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-no-undef */
-import {FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube, FaTelegramPlane,} from "react-icons/fa";
+import {FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaTelegramPlane,} from "react-icons/fa";
+import {MdInsertLink} from "react-icons/md";
 import {CgWebsite} from "react-icons/cg";
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {ResumeContext} from "../../builder";
 import dynamic from "next/dynamic";
 import ModalHighlightMenu from "../components/ModalHighlightMenu";
@@ -22,8 +23,8 @@ const DragDropContext = dynamic(
 const Preview = () => {
   const {resumeData, setResumeData} = useContext(ResumeContext);
   const icons = [
-    {name: "github", icon: <FaGithub/>},
-    {name: "linkedin", icon: <FaLinkedin/>},
+    {name: "github", icon: <MdInsertLink/>},
+    {name: "linkedin", icon: <MdInsertLink/>},
     {name: "twitter", icon: <FaTwitter/>},
     {name: "facebook", icon: <FaFacebook/>},
     {name: "instagram", icon: <FaInstagram/>},
@@ -36,9 +37,8 @@ const Preview = () => {
     <div className="md:max-w-[60%] sticky top-0 preview rm-padding-print p-6 md:overflow-y-scroll md:h-screen">
       <A4PageWrapper>
         <ModalHighlightMenu/>
-        <DragDropContext onDragEnd={onDragEndHandler}>
+        <DragDropContext onDragEnd={(result) => onDragEndHandler(result, resumeData, setResumeData)}>
           <Header resumeData={resumeData} icons={icons}/>
-          <hr className="border-dashed my-2"/>
           <div className="grid grid-cols-3 gap-6">
             <LeftSide resumeData={resumeData}/>
             <RightSide resumeData={resumeData}/>

@@ -13,10 +13,21 @@ const Skills = ({ title, skills }) => {
   return (
     skills && skills.length > 0 && (
       <>
-        <p className="content i-bold editable" contentEditable suppressContentEditableWarning onBlur={handleTitleChange}>
+        <p
+          className="content font-rubik text-accent font-bold text-[12.5px] editable"
+          contentEditable
+          suppressContentEditableWarning
+          onBlur={handleTitleChange}
+        >
           {title}
         </p>
-        <p className="sub-content">{skills.join(", ")}</p>
+        <div className="flex flex-wrap gap-2 mt-1.5">
+          {skills.map((skill, index) => (
+            <span key={index} className="skill-pill">
+              {skill}
+            </span>
+          ))}
+        </div>
       </>
     )
   );

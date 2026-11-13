@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply font-[sans-serif];
+    @apply font-sans;
   }
 
   ::-webkit-scrollbar {
@@ -75,43 +75,76 @@
   }
 }
 
-.name {
-  font-size: 20px;
-  font-weight: 700;
-}
+@layer components {
+  .a4-page {
+    padding: 15mm;
+  }
 
-.profession {
-  font-size: 16px;
-  font-weight: 500;
-}
+  .name {
+    font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    line-height: 1.15;
+  }
 
-.contact {
-  font-size: 14px;
-  font-weight: 400;
-}
+  .profession {
+    font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+  }
 
-.social-media {
-  font-size: 12px;
-  font-weight: 400;
-}
+  .contact {
+    font-size: 11px;
+    font-weight: 600;
+  }
 
-.section-title {
-  font-size: 16px;
-  font-weight: 700;
-}
+  .social-media {
+    font-size: 11px;
+    font-weight: 600;
+  }
 
-.content {
-  font-size: 14px;
-  font-weight: 400;
-}
+  .section-title {
+    font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+  }
 
-.sub-content {
-  font-size: 12px;
-  font-weight: 400;
-}
+  .content {
+    font-size: 12px;
+    font-weight: 400;
+  }
 
-.i-bold {
-  font-weight: 700 !important;
+  .sub-content {
+    font-size: 10.5px;
+    font-weight: 400;
+  }
+
+  .sep {
+    border-bottom: 1px dashed #d3d3d3;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .skill-pill {
+    border: 1px solid #d3d3d3;
+    background: #ffffff;
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #333333;
+  }
+
+  .section-stack > * + * {
+    margin-top: 18px;
+  }
 }
 
 @media print {
@@ -123,92 +156,130 @@
     padding: 0;
   }
 
+  /* Sin márgenes de página: la hoja A4 completa (297mm) queda disponible
+     y el padding visual lo aporta .a4-page (idéntico al preview en pantalla). */
   @page {
     size: A4;
-    margin: 10mm;
+    margin: 0;
   }
 
+  html,
   body {
     margin: 0;
     padding: 0;
   }
 
   .preview {
-    overflow-y: visible !important;
+    position: static !important;
+    overflow: visible !important;
     padding: 0 !important;
     margin: 0 !important;
-    max-width: 210mm !important;
-    height: auto;
+    max-width: none !important;
+    height: auto !important;
   }
 
-  .preview > div {
+  .preview > .a4-page {
     margin: 0;
-    padding: 0;
+  }
+
+  /* Caja A4 exacta: garantiza SIEMPRE 1 sola página.
+     height levemente menor a 297mm para evitar página 2 en blanco
+     por redondeo de Chrome al paginar. */
+  .a4-page {
+    width: 210mm !important;
+    height: 296.5mm !important;
+    padding: 15mm !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+  }
+
+  .preview .grid {
+    gap: 14px;
+  }
+
+  .section-stack > * + * {
+    margin-top: 10px;
   }
 
   .preview h2 {
-    margin-top: 8px;
+    margin-top: 6px;
     margin-bottom: 5px;
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .preview p {
-    margin: 3px 0;
+    margin: 2px 0;
   }
 
   .preview ul {
-    margin: 4px 0;
+    margin: 3px 0;
     padding-left: 1rem;
   }
 
   .preview li {
-    margin: 2px 0;
+    margin: 1px 0;
   }
 
-  .preview div {
+  .preview span {
+    font-size: 9.5px;
+  }
+
+  .preview .sep {
+    padding-bottom: 6px;
     margin-bottom: 6px;
   }
 
+  .skill-pill {
+    padding: 2px 7px;
+    font-size: 9.5px;
+  }
+
   .name {
-    font-size: 20px;
-    margin-bottom: 3px;
+    font-size: 22px;
+    margin-bottom: 2px;
   }
 
   .profession {
-    font-size: 15px;
-    margin-bottom: 3px;
+    font-size: 13px;
+    margin-bottom: 2px;
   }
 
   .contact {
-    font-size: 11.5px;
-    margin-bottom: 4px;
+    font-size: 10px;
+    margin-bottom: 3px;
   }
 
   .social-media {
-    font-size: 11.5px;
+    font-size: 10px;
   }
 
   .section-title {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 800;
+    padding-bottom: 2px;
+    margin-bottom: 6px;
   }
 
   .content {
-    font-size: 11.8px;
-    line-height: 1.42;
+    font-size: 10.5px;
+    line-height: 1.35;
   }
 
   .sub-content {
-    font-size: 11.4px;
-    line-height: 1.4;
+    font-size: 9.5px;
+    line-height: 1.3;
   }
 
   .preview::after {
     content: none;
   }
 
-  .preview * {
+  /* break-inside SOLO en items hoja: evita cortes feos sin empujar
+     contenedores grandes (el grid de 2 columnas) a una 2ª página. */
+  .preview .section-title,
+  .preview li,
+  .preview .skill-pill {
     break-inside: avoid;
   }
 }

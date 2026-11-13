@@ -1,27 +1,24 @@
 const DateRange = ({startYear, endYear, id}) => {
-  const lang = 'es-ES'
-
   if (!startYear) {
-    return <p id={id} className="sub-content"></p>;
+    return <span id={id} className="sub-content"></span>;
   }
 
-  const start = new Date(startYear);
-  const formatDate = (date) => {
-    const month = date.toLocaleString(lang, {month: 'short'}).replace(".", "");
-    return `${month.charAt(0).toUpperCase()}${month.slice(1)} ${date.getFullYear()}`;
+  const formatDate = (value) => {
+    const match = /^(\d{4})-(\d{2})/.exec(value);
+    if (match) {
+      return `${match[2]}/${match[1]}`;
+    }
+    const yearOnly = /^(\d{4})/.exec(value);
+    return yearOnly ? yearOnly[1] : null;
   };
-  const startStr = formatDate(start);
-  const end = new Date(endYear);
-  let endStr = 'Actualidad'
 
-  if (end != "Invalid Date") {
-    endStr = formatDate(end);
-  }
+  const startStr = formatDate(startYear);
+  const endStr = endYear ? formatDate(endYear) : null;
 
   return (
-    <p id={id} className="sub-content">
-      {startStr} — {endStr}
-    </p>
+    <span id={id} className="sub-content">
+      {startStr} - {endStr || "Presente"}
+    </span>
   );
 };
 

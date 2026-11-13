@@ -34,6 +34,16 @@ const WorkExperience = ({workExperience, index}) => {
             handleWorkExperience(resumeData, setResumeData, e, index)
           }
         />
+        <input
+          type="text"
+          placeholder="Location"
+          name="location"
+          className="w-full other-input"
+          value={workExperience.location || ""}
+          onChange={(e) =>
+            handleWorkExperience(resumeData, setResumeData, e, index)
+          }
+        />
         <textarea
           type="text"
           placeholder="Description"

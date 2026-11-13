@@ -16,7 +16,7 @@ const WorkExperiences = () => {
       {(provided) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
           <h2
-            className="section-title mb-1 border-b-2 border-gray-300 editable"
+            className="section-title editable"
             contentEditable
             suppressContentEditableWarning
           >
@@ -26,6 +26,8 @@ const WorkExperiences = () => {
             <WorkExperience
               key={index}
               item={item}
+              index={index}
+              isLast={index === resumeData.workExperience.length - 1}
             />
           ))}
           {provided.placeholder}

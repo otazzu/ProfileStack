@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import DateRange from "../../../../utility/DateRange";
 import Link from "next/link";
+import {MdInsertLink} from "react-icons/md";
 import dynamic from "next/dynamic";
 import {ResumeContext} from "../../../../builder";
 
@@ -20,7 +20,7 @@ const Projects = () => {
       {(provided) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
           <h2
-            className="section-title mb-1 border-b-2 border-gray-300 editable"
+            className="section-title editable"
             contentEditable
             suppressContentEditableWarning
           >
@@ -37,29 +37,30 @@ const Projects = () => {
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className={`mb-1 ${
-                    snapshot.isDragging &&
-                    "outline-dashed outline-2 outline-gray-400 bg-white"
+                  className={`${
+                    index < resumeData.projects.length - 1 ? "sep" : ""
+                  } ${
+                    snapshot.isDragging
+                      ? "outline-dashed outline-2 outline-gray-400 bg-white"
+                      : ""
                   }`}
                 >
-                  <div className="flex flex-row justify-between space-y-1">
-                    <p className="content i-bold">{item.name}</p>
-                    <DateRange
-                      startYear={item.startYear}
-                      endYear={item.endYear}
-                      id={`projects-start-end-date`}
-                    />
-                  </div>
+                  <p className="content text-black font-bold text-[13px]">{item.name}</p>
 
-                  <Link
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="content"
-                  >
-                    {item.link}
-                  </Link>
-                  <p className="content">{item.description}</p>
+                  {item.link && (
+                    <Link
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="sub-content text-body text-[10.5px] inline-flex items-center gap-1 break-all"
+                    >
+                      <MdInsertLink className="shrink-0"/>
+                      {item.link}
+                    </Link>
+                  )}
+                  {item.description && (
+                    <p className="content text-body">{item.description}</p>
+                  )}
 
                   <Droppable
                     droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
@@ -67,7 +68,7 @@ const Projects = () => {
                   >
                     {(provided) => (
                       <ul
-                        className="list-disc ul-padding content"
+                        className="list-disc ul-padding content text-body text-[11.5px]"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >
@@ -86,11 +87,11 @@ const Projects = () => {
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                     className={`
-                                          hover:outline-dashed hover:outline-2 hover:outline-gray-400
-                                          ${
-                                      snapshot.isDragging &&
-                                      "outline-dashed outline-2 outline-gray-400 bg-white"
-                                    }`}
+                                      hover:outline-dashed hover:outline-2 hover:outline-gray-400
+                                      ${
+                                        snapshot.isDragging &&
+                                        "outline-dashed outline-2 outline-gray-400 bg-white"
+                                      }`}
                                   >
                                     <div
                                       dangerouslySetInnerHTML={{

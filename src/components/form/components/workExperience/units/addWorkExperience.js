@@ -6,6 +6,7 @@ export const addWorkExperience = (resumeData, setResumeData) => {
       {
         company: "",
         position: "",
+        location: "",
         description: "",
         keyAchievements: "",
         startYear: "",
