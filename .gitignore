@@ -33,6 +33,9 @@ tempnpm-cache/
 src/data/private-profiles/
 *.private.profile.js
 
+# local tooling artifacts (skill registry cache)
+.atl/
+
 # local-only personal media (profile photos, exported CVs)
 public/assets/*.private.*
 *.pdf
