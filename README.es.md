@@ -39,7 +39,7 @@ Creas un archivo por perfil, como `frontend.profile.js`, `backend.profile.js` o 
   Añade un nuevo archivo `*.profile.js` y aparecerá en la app.
 
 - **Layout A4 de una página**  
-  Previsualiza tu CV en un formato pensado para documentos concisos.
+  Previsualiza tu CV en un formato pensado para documentos concisos, con una cabecera enfocada, una columna amplia para experiencia y proyectos, y una barra lateral compacta para skills, idiomas y formación.
 
 - **Exportación a PDF desde el navegador**  
   Exporta usando el diálogo de impresión del navegador con "Guardar como PDF".
@@ -52,6 +52,9 @@ Creas un archivo por perfil, como `frontend.profile.js`, `backend.profile.js` o 
 
 - **Perfiles privados locales**  
   Mantén tus CVs reales fuera de Git con archivos privados ignorados.
+
+- **Subida de foto de perfil**  
+  Añade una foto desde el editor arrastrándola o con el selector de archivos. La imagen se valida, se previsualiza y se guarda por perfil en el navegador, así que sobrevive a un refresh sin quedar commiteada en el repositorio.
 
 - **Open source**  
   Clónalo, personalízalo y adáptalo a tu propio flujo profesional.
@@ -165,6 +168,8 @@ export default {
 
 Eso es todo. El selector de perfiles se construye a partir de los metadatos de tus archivos, así que no necesitas modificar la lógica de la aplicación.
 
+El campo `profilePicture` acepta un string vacío, una ruta dentro de `public/` como `/assets/photo.jpg`, o el valor base64 que se genera al subir una foto desde el editor.
+
 ## Perfiles Privados
 
 Los CVs reales suelen contener datos personales. ProfileStack incluye una estrategia sencilla para mantener perfiles privados solo en local.
@@ -190,6 +195,21 @@ src/data/private-profiles/
 ```
 
 Esa carpeta está ignorada por Git y está pensada para material local, no para perfiles demo públicos.
+
+## Imágenes y PDFs Privados
+
+Las fotos personales y los CVs exportados también están ignorados:
+
+```text
+public/assets/*.private.*
+*.pdf
+```
+
+Guarda tu foto real dentro de `public/assets/` con el sufijo `.private.`, por ejemplo `public/assets/profile-photo.private.jpg`, y pon en `profilePicture` de tu perfil privado la ruta `/assets/profile-photo.private.jpg`.
+
+Next.js sirve ese archivo en local, así que la vista previa y la exportación a PDF siguen funcionando, mientras la imagen y cualquier PDF que exportes quedan fuera del repositorio.
+
+Las fotos subidas desde el editor se guardan además en el almacenamiento local del navegador, por perfil. Si se llena la cuota de almacenamiento, el editor mantiene la foto durante la sesión actual y te avisa de que no pudo guardarla localmente.
 
 ## Exportar a PDF
 
@@ -222,6 +242,7 @@ La misma trayectoria profesional puede sostener historias distintas, siempre que
 - [x] Arquitectura de múltiples perfiles
 - [x] Carga automática de perfiles
 - [x] Exportación a PDF desde el navegador
+- [x] Subida de foto de perfil con persistencia local
 - [ ] Layouts personalizados
 - [ ] Personalización de temas
 - [ ] Plantillas de perfiles

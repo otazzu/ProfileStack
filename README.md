@@ -39,7 +39,7 @@ You create one file per profile, such as `frontend.profile.js`, `backend.profile
   Add a new `*.profile.js` file and it appears in the app.
 
 - **One-page A4 layout**  
-  Preview your CV in a print-oriented layout designed for concise resumes.
+  Preview your CV in a print-oriented layout designed for concise resumes, with a focused header, a wide column for experience and projects, and a compact sidebar for skills, languages and education.
 
 - **Browser PDF export**  
   Export through the browser print dialog using "Save as PDF".
@@ -52,6 +52,9 @@ You create one file per profile, such as `frontend.profile.js`, `backend.profile
 
 - **Private local profiles**  
   Keep real personal CVs out of Git with ignored private profile files.
+
+- **Profile picture upload**  
+  Add a photo from the editor by drag and drop or with the file picker. Images are validated, previewed, and saved per profile in the browser, so the picture survives a refresh without being committed to the repository.
 
 - **Open source**  
   Clone it, customize it, and adapt it to your own career workflow.
@@ -165,6 +168,8 @@ export default {
 
 That is it. The profile selector is built from the metadata in your files, so you do not need to modify the application logic.
 
+The `profilePicture` field accepts an empty string, a path under `public/` such as `/assets/photo.jpg`, or the base64 value produced when you upload a picture from the editor.
+
 ## Private Profiles
 
 Real CVs often contain personal data. ProfileStack includes a simple strategy for keeping private profiles local.
@@ -190,6 +195,21 @@ src/data/private-profiles/
 ```
 
 That folder is ignored by Git and is intended for local material, not public demo profiles.
+
+## Private Media
+
+Personal photos and exported CVs are ignored as well:
+
+```text
+public/assets/*.private.*
+*.pdf
+```
+
+Keep your real photo inside `public/assets/` with a `.private.` suffix, for example `public/assets/profile-photo.private.jpg`, and set `profilePicture` in your private profile to `/assets/profile-photo.private.jpg`.
+
+Next.js serves that file locally, so the preview and the PDF export keep working, while the image and any PDF you export stay out of the repository.
+
+Uploaded pictures are also stored in the browser's local storage per profile. If the storage quota is reached, the editor keeps the picture for the current session and tells you that it could not be saved locally.
 
 ## Export to PDF
 
@@ -222,6 +242,7 @@ The same professional history can support different stories, as long as each ver
 - [x] Multiple profile architecture
 - [x] Automatic profile loading
 - [x] Browser PDF export
+- [x] Profile picture upload with local persistence
 - [ ] Custom layouts
 - [ ] Theme customization
 - [ ] Profile templates
