@@ -38,6 +38,9 @@ You create one file per profile, such as `frontend.profile.js`, `backend.profile
 - **Automatic profile discovery**  
   Add a new `*.profile.js` file and it appears in the app.
 
+- **Reorder entries in the editor**  
+  Drag the grip handle on any entry to move it within education, work experience, projects, skills, languages, social links and certifications. The same handle responds to the arrow keys for keyboard users.
+
 - **One-page A4 layout**  
   Preview your CV in a print-oriented layout designed for concise resumes, with a focused header, a wide column for experience and projects, and a compact sidebar for skills, languages and education.
 

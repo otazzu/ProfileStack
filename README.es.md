@@ -38,6 +38,9 @@ Creas un archivo por perfil, como `frontend.profile.js`, `backend.profile.js` o 
 - **Descubrimiento automático de perfiles**  
   Añade un nuevo archivo `*.profile.js` y aparecerá en la app.
 
+- **Reordenar entradas en el editor**  
+  Arrastra el asa de cualquier entrada para cambiarla de posición dentro de formación, experiencia, proyectos, skills, idiomas, redes y certificaciones. El mismo asa responde a las flechas del teclado.
+
 - **Layout A4 de una página**  
   Previsualiza tu CV en un formato pensado para documentos concisos, con una cabecera enfocada, una columna amplia para experiencia y proyectos, y una barra lateral compacta para skills, idiomas y formación.
 
